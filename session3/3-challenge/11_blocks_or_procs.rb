@@ -30,5 +30,17 @@
 # end
 
 
-def array_init
+def array_init arr=5, &block
+  new_arr = []
+  0.upto(arr-1) do |x|
+    if block.nil?
+      new_arr << (x * 100).to_s
+    else
+      new_arr << block.call(x)
+    end
+  end
+  new_arr
 end
+
+
+puts array_init

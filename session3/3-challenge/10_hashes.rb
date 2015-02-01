@@ -29,13 +29,43 @@
 # create it from scratch :)
 
 
-def pathify(hash)
-  hash.each do |folder, contents|
-     print "#{folder} contains #{contents},"
+#pathify 'usr' => {'bin' => ['ruby']}
+
+
+def pathify(paths)
+#stuck on this one and got a lot of help from the solutions.
+  return paths.map {|file| '/' + file } if paths.is_a? Array
+  dir = []
+  paths.each do |folder, content|
+    folder = '/' + folder
+    next_level = pathify(content)
+    next_level.each do |child_path|
+      #puts child_path
+      dir << (folder + child_path)
+    end
   end
+  dir
 end
 
-puts pathify(
+
+
+def pathify1(paths)
+  # base step
+  return paths.map { |path| '/' + path } if paths.is_a? Array
+
+  # recursive step
+  to_return = []
+  paths.each do |parent_path, child_dirs|
+    parent_path = '/' + parent_path         # paths begin with a /
+    child_paths = pathify child_dirs        # convert child directories to paths
+    child_paths.each do |child_path|        # join each child path to it's parent path
+      to_return << (parent_path + child_path)
+    end
+  end
+  to_return
+end
+
+ pathify(
   'usr' => {'bin' => ['ruby']},
   'opt' => {'local' => {'bin' => ['sqlite3', 'rsync']}}
   )
