@@ -29,4 +29,43 @@
 # shared [1,2,3], [3,2,1]            # => [{1=>[true, true], 2=>[true, true], 3=>[true, true]}, [1, 2, 3]]
 
 def shared(a, b)
+  @a = a
+  @b = b
+  arr = []
+  matchingValues = []
+  @keys = createKeys(a,b)
+  @match = Hash.new {|this_hash, key| this_hash[key] = nil}
+  arr << check_each_key
+
+
+  @match.each do |key, val|
+    matchingValues << key if val == [true, true]
+  end
+  arr << matchingValues
+
 end
+
+def check_each_key
+  @keys.each do |key|
+    a_result = check_for_match(@a,key)
+    b_result =  check_for_match(@b,key)
+    @match[key] = [a_result, b_result]
+  end
+  @match
+end
+
+def check_for_match arr, key
+  result = nil
+    arr.each do |element|
+      if element == key
+        return true
+      end
+    end
+  result
+end
+
+def createKeys(a,b)
+  keys = a << b
+  keys = keys.flatten.uniq
+end
+

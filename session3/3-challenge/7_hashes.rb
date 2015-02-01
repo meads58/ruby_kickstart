@@ -31,10 +31,16 @@ class HTMLTag
     :monospace  => '"Courier New", "Lucida Console"'
   }
 
+  COLOR = {
+    :red     => "#FF0000",
+    :green   => "#00FF00",
+    :blue    => "#0000FF"
+  }
+
   attr_accessor :name, :innerHTML, :options
 
   # options: :multiline should be true or false
-  def initialize(name, innerHTML, options)
+  def initialize(name, innerHTML, options=Hash.new)
     @name, @innerHTML, @options = name, innerHTML, options
   end
 
@@ -44,16 +50,28 @@ class HTMLTag
   end
 
   def style
-    return nil unless options[:font]
-    "style='font-family:#{font}'"
+    return nil unless font || color#will only run the below code if either of these exist
+    html_builder = "style='"#build up a string to print out
+    html_builder << "font-family:#{font};" if font
+    html_builder << "color:#{color};" if color
+    html_builder << "'"
+    html_builder
+
+  end
+
+  def color
+    return nil unless options[:color]
+    color = options[:color]
+    COLOR[color]
+
   end
 
   def to_s
-    line_end = if options[:multiline] then "\n" else "" end
+    line_end = ""
+    line_end = "\n" if options[:multiline]#nil is false
     "<#{name} #{style}>#{line_end}"  \
-    "#{innerHTML.chomp}#{line_end}"  \
+      "#{innerHTML.chomp}#{line_end}"  \
     "</#{name}>\n"
   end
 
 end
-

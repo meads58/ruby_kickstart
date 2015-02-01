@@ -8,23 +8,19 @@
 # staircase 4  # => {1 => [], 3 => [2]}
 # staircase 5  # => {1 => [], 3 => [2], 5 =>[2, 4]}
 
+#i > 0 yes then return hash
+#keys are odd number up to it
+#value are even nums up to key
 
-<<<<<<< HEAD
-
-
-
-=======
-#Jordan
-def staircase(number)
-  output = {}
-  1.upto(number) do |num|
-    next if num.even?
-
-    array_of_all_numbers = Array.new(num) { |index| index+1 }
-
-
-    output[num] = array_of_all_numbers.select{|e| e.even?}
+def staircase int
+  result = Hash.new
+  1.upto(int) do |i|
+    even = []
+      1.upto(i) {|x| even << x if x.even?}#create an array of evens
+    if i.odd?
+      result[i] = even#if the current number is odd set it as the key and set the value as the even array.
+    end
   end
-  output
+  result
 end
->>>>>>> 202b3dbd049e0c7936f227c4ded6abc592242bd8
+

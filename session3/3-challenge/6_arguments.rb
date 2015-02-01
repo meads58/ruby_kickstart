@@ -17,3 +17,38 @@
 # match_maker true,  true,  true, true, nil     # => [false, true]
 # match_maker true,  true,  true, 0, nil        # => [false, true]
 
+#false, false, false = true
+#false, true, true = true
+#true, false, false = false
+#true, true, true = false
+
+def match_maker setter, *args
+  pairs = []
+  args.to_a.each_slice(2) do |a,b|
+    a = !!a#this will set show if the value is true or false. Nil is false.
+    b = !!b
+    if a == b
+      pairs << true
+    else
+      pairs << false
+    end
+  end
+  if setter == true#reverse the result if true
+    pairs.map! do |i|
+      i = !i
+    end
+  end
+ p pairs
+end
+#match_maker false, true,  true, false, false
+
+
+ match_maker false, true,  true                # => [true]
+ match_maker true,  true,  true                # => [false]
+ match_maker true,  false, false               # => [false]
+ match_maker true,  false, true                # => [true]
+ match_maker true,  true,  false               # => [true]
+ match_maker true,  true,  true, false, true   # => [false, true]
+ match_maker true,  true,  true, false, nil    # => [false, false]
+ match_maker true,  true,  true, true, nil     # => [false, true]
+ match_maker true,  true,  true, 0, nil        # => [false, true]

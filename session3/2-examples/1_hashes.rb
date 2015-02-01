@@ -1,17 +1,17 @@
 class HTMLTag
-  
-  FONTS = { 
+
+  FONTS = {
     :serif        => '"Times New Roman", "Georgia"'     ,
     :sans_serif   => '"Arial", "Verdana"'               ,
-    :monospace    => '"Courier New", "Lucida Console"' 
+    :monospace    => '"Courier New", "Lucida Console"'
   }
-  
+
   attr_accessor :name , :innerHTML , :options
-  
+
   # options is a hash tag that allows the user to specify whether they want this tag to span multiple lines
   # example when args are: 'p' , 'hello world' , :multiline => false
   # <p >hello world</p>
-  # 
+  #
   # example when args are: 'p' , 'hello world' , :multiline => true
   # <p >
   # hello world
@@ -19,7 +19,7 @@ class HTMLTag
   def initialize(name, innerHTML, options={})
     @name , @innerHTML , @options = name , innerHTML , options
   end
-  
+
   def font
     font = options[:font]   # one of :serif , :sans_serif , :monospace, or nil if it doesn't exist
     FONTS[font]             # look up the user defined result in our FONTS hash to get the css
@@ -31,7 +31,7 @@ class HTMLTag
     return nil unless options[:font]
     "style='font-family:#{font}'"
   end
-  
+
   # convert our HTMLTag to a String (in this case, it is represented as HTML)
   def to_s
     # remember, if options[:multiline] doesn't exist, it will return nil, and nil is false
@@ -40,7 +40,7 @@ class HTMLTag
     "#{innerHTML.chomp}#{line_end}"  \
     "</#{name}>\n"
   end
-  
+
 end
 
 

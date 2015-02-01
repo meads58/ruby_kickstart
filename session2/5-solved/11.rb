@@ -26,7 +26,7 @@ class BeerSong
 
   # returns "bottle" or "bottles"
   def bottle(n)
-    if n == 1 then 'bottle' else 'bottles' 
+    if n == 1 then 'bottle' else 'bottles'
     end
   end
 
@@ -42,7 +42,7 @@ class BeerSong
   end
 end
 
-<<<<<<< HEAD
+
 #===================Meads=================
 
 class BeerSong
@@ -58,7 +58,6 @@ class BeerSong
   end
 
 
-
   def createWordNumber num
     return @ones[num] if num < 10
     return @tens[num] if num < 20
@@ -72,31 +71,39 @@ class BeerSong
   end
 
 
-def bottles bottles
+  def bottles bottles
    if bottles == 1
      return "bottle"
    else
      return "bottles"
    end
-end
+  end
 
-def print_song
+  def print_song
     return String.new if @numBottles.zero?
     @numBottles.downto(1) do |num|
+      standardVerse(num)
+      lastLineOfVerse(num)
+    end
+  end
+
+  def standardVerse num
       puts"#{createWordNumber(num).capitalize} #{bottles(num)} of beer on the wall,"
       puts"#{createWordNumber(num).capitalize} #{bottles(num)} of beer,"
       puts"Take one down, pass it around,"
-      if num == 1
+  end
+
+  def lastLineOfVerse num
+     if num == 1
         print"#{createWordNumber(num-1).capitalize} #{bottles(num-1)} of beer on the wall."
       else
         puts"#{createWordNumber(num-1).capitalize} #{bottles(num-1)} of beer on the wall."
       end
-    end
   end
 
 end
 #==============================================
-=======
+
 
 #Sebastien
 class BeerSong
@@ -164,7 +171,7 @@ class BeerSong          #create a class BeerSong
     beers = 99 if beers > 99
     @beers = beers
   end
- 
+
  def translate(n)       #translate numbers into their corresponding matuching number string
     if 0 <= n && n <= 19
       %w(zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen)[n]

@@ -6,3 +6,12 @@
 #
 # first_pos "The dog and the cat and the cow" # => {"The" => 0, "dog" => 1, "and" => 2, "the" => 3, "cat" => 4, "cow" => 7}
 
+def first_pos str
+  result = Hash.new
+  str.split.each_with_index do |val, idx|
+    result[val] = idx if result[val].nil?
+  end
+  result
+end
+
+
